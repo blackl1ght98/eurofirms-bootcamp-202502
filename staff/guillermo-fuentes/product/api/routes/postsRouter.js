@@ -1,10 +1,10 @@
-import { Router } from 'express';
-import { jsonBodyParser } from '../middlewares/jsonBodyParser.js';
-import { logic } from '../logic/index.js';
-import jwt from 'jsonwebtoken';
+import { Router } from "express";
+import { jsonBodyParser } from "../middlewares/jsonBodyParser.js";
+import { logic } from "../logic/index.js";
+import jwt from "jsonwebtoken";
 const { JWT_SECRET } = process.env;
 export const postsRouter = Router();
-postsRouter.post('/', jsonBodyParser, (request, response, next) => {
+postsRouter.post("/", jsonBodyParser, (request, response, next) => {
   try {
     const authorization = request.headers.authorization;
     const token = authorization.slice(7);
@@ -22,7 +22,7 @@ postsRouter.post('/', jsonBodyParser, (request, response, next) => {
   }
 });
 
-postsRouter.get('/', (request, response, next) => {
+postsRouter.get("/", (request, response, next) => {
   try {
     const authorization = request.headers.authorization;
     const token = authorization.slice(7);
@@ -38,7 +38,7 @@ postsRouter.get('/', (request, response, next) => {
   }
 });
 
-postsRouter.delete('/:postId', (request, response, next) => {
+postsRouter.delete("/:postId", (request, response, next) => {
   try {
     const authorization = request.headers.authorization;
     const token = authorization.slice(7);

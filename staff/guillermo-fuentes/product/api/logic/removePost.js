@@ -1,25 +1,31 @@
-import { User, Post } from '../data/index.js';
-import { validate, ValidationError, NotFoundError, CredentialsError, SystemError, AuthorshipError } from 'com';
+import { User, Post } from "../data/index.js";
+import { validate, ValidationError, NotFoundError, CredentialsError, SystemError, AuthorshipError } from "com";
 export const removePost = (userId, postId) => {
   validate.userId(userId);
   validate.postId(postId);
 
-  return Promise.all([User.findById(userId).lean(), Post.findById(postId).lean()])
+  return User.findById(userId)
     .catch((error) => {
-      throw new SystemError('Mongo error');
+      throw new SystemError("mongo error");
     })
-    .then(([user, post]) => {
-      if (!user) throw new NotFoundError('User not found');
-      if (!post) throw new NotFoundError('post not found');
+    .then((user) => {
+      if (!user) throw new NotFoundError("user not found");
 
-      const authorId = post.author.toString();
-      const userId = user._id.toString();
-      if (authorId !== userId) throw new AuthorshipError('user is not owner author');
+      return Post.findById(postId)
+        .catch((error) => {
+          throw new SystemError("mongo error");
+        })
+        .then((post) => {
+          if (!post) throw new NotFoundError("post not found");
 
-      return Post.deleteOne({ _id: post._id }).catch((error) => {
-        throw new SystemError('Mongo error');
-      });
-    })
+          if (user.role !== "administrator" && post.author.toString() !== userId)
+            throw new AuthorshipError("user not author of post");
 
-    .then(() => {});
+          return Post.deleteOne({ _id: postId })
+            .catch((error) => {
+              throw new SystemError("mongo error");
+            })
+            .then(() => {});
+        });
+    });
 };

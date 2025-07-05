@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 //Un esquema sirve para definir datos
 const { Schema, model } = mongoose;
 const { Types } = Schema;
@@ -23,12 +23,18 @@ const user = new Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    required: true,
+    enum: ["regular", "moderator", "administrator"],
+    default: "regular",
+  },
 });
 const post = new Schema({
   author: {
     type: ObjectId,
     required: true,
-    ref: 'User',
+    ref: "User",
   },
   text: {
     type: String,
@@ -46,12 +52,12 @@ const post = new Schema({
   likes: [
     {
       type: ObjectId,
-      ref: 'User',
+      ref: "User",
     },
   ],
 });
 
-const User = model('User', user);
-const Post = model('Post', post);
+const User = model("User", user);
+const Post = model("Post", post);
 
 export { User, Post };

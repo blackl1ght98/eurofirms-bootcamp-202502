@@ -1,6 +1,6 @@
-import { User } from '../data/index.js';
-import bcrypt from 'bcryptjs';
-import { validate, NotFoundError, CredentialsError, SystemError } from 'com';
+import { User } from "../data/index.js";
+import bcrypt from "bcryptjs";
+import { validate, NotFoundError, CredentialsError, SystemError } from "com";
 
 /**
  * Authenticates a user from the system.
@@ -14,18 +14,20 @@ export const authenticateUser = (username, password) => {
 
   return User.findOne({ username })
     .catch((error) => {
-      throw new SystemError(error.message);
+      throw new SystemError("mongo error");
     })
     .then((user) => {
-      if (!user) throw new NotFoundError('user not found');
-      
+      if (!user) throw new NotFoundError("user not found");
+
       return bcrypt
         .compare(password, user.password)
-        .then(() => {
-          return user.id;
+        .catch((error) => {
+          throw new SystemError(error.message);
         })
-        .catch(() => {
-          throw new CredentialsError('credentials error');
+        .then((match) => {
+          if (!match) throw new CredentialsError("wrong password");
+
+          return { id: user.id, role: user.role };
         });
     });
 };
