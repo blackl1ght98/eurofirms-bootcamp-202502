@@ -32,11 +32,8 @@ export const Post = ({ post, onPostDeleted }) => {
       <div className="flex items-center justify-between p-4">
         <h3 className="font-semibold text-gray-800">@{post.author.username}</h3>
 
-        {post.own && (
-          <button onClick={handleDeleteClick} className="text-red-500 hover:text-red-700 text-xl" title="Delete post">
-            🗑️
-          </button>
-        )}
+        {(post.own || isAdmin) && <button className="border-4 border-black px-2 mx-1 cursor-pointer" onClick={handleDeleteClick}>🗑️</button>}
+
       </div>
 
       <div className="w-full aspect-square bg-gray-100 overflow-hidden">
