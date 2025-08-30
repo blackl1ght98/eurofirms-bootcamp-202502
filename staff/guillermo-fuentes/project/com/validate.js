@@ -125,4 +125,8 @@ export const validate = {
     if (typeof orderId !== "string") throw new ValidationError("invalid orderId type");
     if (!orderId.trim()) throw new ValidationError("invalid orderId length");
   },
+  cartItemId(cartItemId) {
+    if (typeof cartItemId !== "string") throw new ValidationError("invalid cartItemId type");
+    if (!cartItemId.trim()) throw new ValidationError("invalid cartItemId length");
+  },
 };
