@@ -30,6 +30,8 @@ import { addToCart } from "./addToCart";
 import { getCartItems } from "./getCartItems";
 import { removeCartItem } from "./removeCartItem";
 import { checkoutCart } from "./checkoutcart";
+import { incrementCartItem } from "./incremetCartItem";
+import { decrementCartItem } from "./decrementCartItem";
 
 export const logic = {
   loginUser,
@@ -64,4 +66,6 @@ export const logic = {
   getCartItems,
   removeCartItem,
   checkoutCart,
+  incrementCartItem,
+  decrementCartItem,
 };

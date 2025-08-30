@@ -1,9 +1,11 @@
 import { useContext } from "../../context/context";
 import { logic } from "../../logic";
-
+import { data } from "../../data";
+import { getPayloadFromToken } from "../../logic/helper/getPayloadFromToken";
 export const CartItem = ({ item, onItemRemoved }) => {
   const { alert, confirm } = useContext();
-
+  const token = data.getToken();
+  const userId = getPayloadFromToken(token);
   const handleRemoveItem = () => {
     confirm("¿Eliminar este producto del carrito?").then((result) => {
       if (result) {
@@ -25,7 +27,28 @@ export const CartItem = ({ item, onItemRemoved }) => {
       }
     });
   };
-
+  const handleIncremetItem = () => {
+    logic
+      .incrementCartItem(userId.sub, item.cartItemId)
+      .then(() => {
+        onItemRemoved();
+      })
+      .catch((error) => {
+        console.error("Unexpected error", error);
+        alert(error.message);
+      });
+  };
+  const handleDecrementItem = () => {
+    logic
+      .decrementCartItem(userId.sub, item.cartItemId)
+      .then(() => {
+        onItemRemoved();
+      })
+      .catch((error) => {
+        console.error("Unexpected error", error);
+        alert(error.message);
+      });
+  };
   if (!item.product) {
     return null;
   }
@@ -57,6 +80,18 @@ export const CartItem = ({ item, onItemRemoved }) => {
           onClick={handleRemoveItem}
         >
           Eliminar del Carrito
+        </button>
+        <button
+          className="w-full bg-blue-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition duration-200 mt-2"
+          onClick={handleIncremetItem}
+        >
+          Incrementar cantidad
+        </button>
+        <button
+          className="w-full bg-blue-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition duration-200 mt-2"
+          onClick={handleDecrementItem}
+        >
+          Decrementar cantidad
         </button>
       </div>
     </div>
