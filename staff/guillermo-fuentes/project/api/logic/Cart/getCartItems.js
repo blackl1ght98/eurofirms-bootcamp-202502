@@ -5,7 +5,7 @@ export const getCartItems = (userId) => {
   validate.userId(userId);
 
   return User.findById(userId)
-    .catch((error) => {
+    .catch(() => {
       throw new SystemError("mongo error");
     })
     .then((user) => {
@@ -13,45 +13,44 @@ export const getCartItems = (userId) => {
 
       return Order.findOne({ user: userId, stateOrder: "cart", isCar: true }, "-__v")
         .lean()
-        .populate({
-          path: "products.product",
-          select: "name description price stock image _id",
-        })
-        .populate({
-          path: "user",
-          select: "fullName",
-        })
-        .catch((error) => {
+        .populate({ path: "products.product", select: "name description price stock image _id" })
+        .populate({ path: "user", select: "fullName" })
+        .catch(() => {
           throw new SystemError("mongo error");
-        })
-        .then((order) => {
-          if (!order) return null;
-          return {
-            orderId: order._id.toString(),
-            numberOrder: order.numberOrder,
-            dateOrder: order.dateOrder,
-            stateOrder: order.stateOrder,
-            total: order.total,
-            saleId: order.saleId,
-            currency: order.currency,
-            pagoId: order.pagoId,
-            isCar: order.isCar,
-            user: order.user ? order.user.fullName : null,
-            products: (order.products || []).map((item) => ({
-              cartItemId: item._id.toString(),
-              product: item.product
-                ? {
-                    productId: item.product._id.toString(),
-                    name: item.product.name,
-                    description: item.product.description,
-                    price: item.product.price,
-                    stock: item.product.stock,
-                    quantity: item.quantity,
-                    priceAtOrderTime: item.priceAtOrderTime,
-                  }
-                : null,
-            })),
-          };
         });
+    })
+    .then((order) => {
+      if (!order) return null;
+
+      return {
+        orderId: order._id.toString(),
+        numberOrder: order.numberOrder,
+        dateOrder: order.dateOrder,
+        stateOrder: order.stateOrder,
+        total: order.total,
+        saleId: order.saleId,
+        currency: order.currency,
+        pagoId: order.pagoId,
+        isCar: order.isCar,
+        user: order.user?.fullName || null,
+        products: (order.products || []).map((item) => ({
+          cartItemId: item._id.toString(),
+          product: item.product
+            ? {
+                productId: item.product._id.toString(),
+                name: item.product.name,
+                description: item.product.description,
+                price: item.product.price,
+                stock: item.product.stock,
+                quantity: item.quantity,
+                priceAtOrderTime: item.priceAtOrderTime,
+              }
+            : null,
+        })),
+      };
+    })
+    .catch((error) => {
+      if (error instanceof NotFoundError) throw error;
+      throw new SystemError("Error en MongoDB");
     });
 };
