@@ -90,6 +90,24 @@ productRouter.get("/search/:query", (req, res, next) => {
       next(error);
     });
 });
+productRouter.get("/search/product/:query", (req, res, next) => {
+  const authorization = req.headers.authorization;
+  if (!authorization || !authorization.startsWith("Bearer ")) {
+    throw new ValidationError("Token de autenticación no proporcionado");
+  }
+
+  const token = authorization.slice(7);
+  const { query } = req.params;
+  const { sub: userId } = jwt.verify(token, JWT_SECRET);
+  logic
+    .searchProducts(userId, query)
+    .then((products) => {
+      res.status(200).json(products);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 productRouter.get("/", (request, response, next) => {
   try {
     const { authorization } = request.headers;

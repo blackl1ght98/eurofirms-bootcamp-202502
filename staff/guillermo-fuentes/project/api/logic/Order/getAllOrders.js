@@ -24,7 +24,7 @@ export const getAllOrder = (userId) => {
         .then((orders) => {
           return orders.map((order) => {
             const transformedOrder = {
-              orderId: order._id.toString(),
+              id: order._id.toString(),
               numberOrder: order.numberOrder,
               dateOrder: order.dateOrder,
               stateOrder: order.stateOrder,
