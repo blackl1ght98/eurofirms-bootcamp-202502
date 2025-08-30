@@ -14,7 +14,10 @@ import { AddProvider } from "./view/AddProvider";
 import { Products } from "./view/Products";
 import { AddProduct } from "./view/AddProduct";
 import { useLoggedIn } from "./hooks/useLoggedIn";
-
+import { Orders } from "./view/Orders";
+import { AddOrder } from "./view/AddOrder";
+import { OrderDetails } from "./view/components/OrderDetails";
+import { CartItems } from "./view/CartItems";
 export const App = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [confirmMessage, setConfirmMessage] = useState("");
@@ -64,6 +67,7 @@ export const App = () => {
   const handleRegisterClicked = () => navigate("/register");
   const handleUserLoggedIn = () => navigate("/users");
   const handleProductAdded = () => navigate("/products");
+  const handleOrderAdded = () => navigate("/orders");
   const handleUserRegistered = () => navigate("/login");
   const handleUserRegisteredAdmin = () => navigate("/users");
   const handleRegisterCancel = () => navigate("/login");
@@ -104,7 +108,11 @@ export const App = () => {
         />
         <Route
           path="/addProduct"
-          element={loggedIn ? <AddProduct onProductAdded={handleProductAdded} /> : <Navigate to="/login" />}
+          element={loggedIn ? <AddProduct onProductAdded={handleOrderAdded} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/addOrder"
+          element={loggedIn ? <AddOrder onOrderAdded={handleProductAdded} /> : <Navigate to="/login" />}
         />
         <Route
           path="/login"
@@ -116,7 +124,11 @@ export const App = () => {
             )
           }
         />
+        {/** Cuando se quiere capturar algun parametro que viene por la url en react se hace asi: path="/orderDetails/:orderId" los ":" indica que lo que viene es un parametro*/}
+        <Route path="/orderDetails/:orderId" element={loggedIn ? <OrderDetails /> : <Navigate to="/login" />} />
+        <Route path="/carrito" element={loggedIn ? <CartItems /> : <Navigate to="/login" />} />
         <Route path="/users" element={loggedIn ? <Users /> : <Navigate to="/login" />} />
+        <Route path="/orders" element={loggedIn ? <Orders /> : <Navigate to="/login" />} />
         <Route path="/providers" element={loggedIn ? <Providers /> : <Navigate to="/login" />} />
         <Route path="/products" element={loggedIn ? <Products /> : <Navigate to="/login" />} />
       </Routes>

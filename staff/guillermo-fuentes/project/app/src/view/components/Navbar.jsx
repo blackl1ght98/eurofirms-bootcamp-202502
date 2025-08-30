@@ -74,6 +74,18 @@ export const Navbar = () => {
                 >
                   📦 Products
                 </button>
+                <button
+                  className="text-gray-700 text-left hover:text-blue-600 transition font-medium"
+                  onClick={() => navigate("/orders")}
+                >
+                  Orders
+                </button>
+                <button
+                  className="text-gray-700 text-left hover:text-blue-600 transition font-medium"
+                  onClick={() => navigate("/carrito")}
+                >
+                  Carrito
+                </button>
               </>
             )}
           </div>

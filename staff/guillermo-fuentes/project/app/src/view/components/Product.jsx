@@ -36,6 +36,20 @@ export const Product = ({ product, onReloadProvider, onEditedProduct }) => {
         }
     });
   };
+  const handleAddCart = () => {
+    try {
+      logic
+        .addToCart(product.id, 1)
+        .then(() => onEditedProduct())
+        .catch((error) => {
+          console.error(error);
+          alert(error.message);
+        });
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  };
   return (
     <>
       <div className="max-w-sm w-full bg-white border border-gray-300 rounded-2xl shadow-md p-6 m-4 hover:shadow-xl transition-shadow duration-300">
@@ -98,6 +112,12 @@ export const Product = ({ product, onReloadProvider, onEditedProduct }) => {
             className="w-full bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 text-white font-semibold py-3 rounded-lg transition duration-200"
           >
             Delete Product
+          </button>
+          <button
+            onClick={handleAddCart}
+            className="w-full bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 text-white font-semibold py-3 rounded-lg transition duration-200"
+          >
+            Add Cart
           </button>
         </div>
 
