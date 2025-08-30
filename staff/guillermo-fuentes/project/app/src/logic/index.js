@@ -29,6 +29,7 @@ import { deleteOrder } from "./deleteOrder";
 import { addToCart } from "./addToCart";
 import { getCartItems } from "./getCartItems";
 import { removeCartItem } from "./removeCartItem";
+import { checkoutCart } from "./checkoutcart";
 
 export const logic = {
   loginUser,
@@ -62,4 +63,5 @@ export const logic = {
   addToCart,
   getCartItems,
   removeCartItem,
+  checkoutCart,
 };
