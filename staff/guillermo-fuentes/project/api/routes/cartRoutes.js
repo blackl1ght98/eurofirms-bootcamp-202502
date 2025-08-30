@@ -73,7 +73,7 @@ cartRouter.put("/item/:cartItemId/increment", (request, response, next) => {
 
     const token = authorization.slice(7);
     const { sub: userId } = jwt.verify(token, JWT_SECRET);
-    const { cartItemId } = req.params;
+    const { cartItemId } = request.params;
     logic
       .incrementCartItem(userId, cartItemId)
       .then(() => response.status(200).json())
@@ -92,7 +92,7 @@ cartRouter.put("/item/:cartItemId/decrement", (request, response, next) => {
 
     const token = authorization.slice(7);
     const { sub: userId } = jwt.verify(token, JWT_SECRET);
-    const { cartItemId } = req.params;
+    const { cartItemId } = request.params;
     logic
       .decrementCartItem(userId, cartItemId)
       .then(() => response.status(200).json())

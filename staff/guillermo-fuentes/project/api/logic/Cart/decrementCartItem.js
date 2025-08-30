@@ -2,7 +2,8 @@ import { Order, Product, User } from "../../data/index.js";
 import { validate, NotFoundError, SystemError } from "com";
 
 export const decrementCartItem = (userId, cartItemId) => {
-  validate.id(cartItemId, "cartItemId");
+  validate.userId(userId);
+  validate.cartItemId(cartItemId);
 
   return User.findById(userId)
     .catch(() => {
