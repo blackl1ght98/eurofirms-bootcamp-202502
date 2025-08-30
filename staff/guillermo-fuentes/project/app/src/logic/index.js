@@ -20,6 +20,16 @@ import { getUserById } from "./getUserById";
 import { isUserAdministrator } from "./isUserAdministrator";
 import { isUserProvider } from "./isUserProvider";
 import { isCurrentUser } from "./isCurrentUser";
+import { getAllOrder } from "./getAllOrders";
+import { updateOrder } from "./updateOrder";
+import { addOrder } from "./addOrder";
+import { getProductsSuggestions } from "./getProductsSuggestions";
+import { getOrderDetail } from "./getOrderDetail";
+import { deleteOrder } from "./deleteOrder";
+import { addToCart } from "./addToCart";
+import { getCartItems } from "./getCartItems";
+import { removeCartItem } from "./removeCartItem";
+
 export const logic = {
   loginUser,
   isUserLoggedIn,
@@ -43,4 +53,13 @@ export const logic = {
   isUserProvider,
   isUserAdministrator,
   isCurrentUser,
+  getAllOrder,
+  updateOrder,
+  addOrder,
+  getProductsSuggestions,
+  getOrderDetail,
+  deleteOrder,
+  addToCart,
+  getCartItems,
+  removeCartItem,
 };
