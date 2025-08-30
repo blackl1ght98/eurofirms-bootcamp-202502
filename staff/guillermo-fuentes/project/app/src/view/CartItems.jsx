@@ -2,9 +2,10 @@ import { logic } from "../logic";
 import { useState, useEffect } from "react";
 import { useContext } from "../context/context";
 import { CartItem } from "./components/CartItem";
-
+import { data } from "../data";
+import { getPayloadFromToken } from "../logic/helper/getPayloadFromToken";
 export const CartItems = () => {
-  const [cart, setCart] = useState(null); // Cambiamos 'items' a 'cart' para claridad
+  const [cart, setCart] = useState(null);
   const { alert } = useContext();
 
   useEffect(() => {
@@ -24,9 +25,19 @@ export const CartItems = () => {
       alert(error.message);
     }
   }, []);
-
+  const token = data.getToken();
+  const userId = getPayloadFromToken(token);
   const handleCheckout = () => {
-    alert("Funcionalidad de checkout pendiente ");
+    logic
+      .checkoutCart(userId.sub)
+      .then(() => {
+        alert("checkout exitoso");
+        setCart(null);
+      })
+      .catch((error) => {
+        console.error(error);
+        alert(error.message);
+      });
   };
 
   return (
