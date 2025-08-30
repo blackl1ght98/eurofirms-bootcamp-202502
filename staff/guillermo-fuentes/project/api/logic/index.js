@@ -21,6 +21,13 @@ import { deleteOrder } from "./Order/deleteOrder.js";
 import { getAllOrder } from "./Order/getAllOrders.js";
 import { getOrderDetails } from "./Order/getOrderDetails.js";
 import { getOrderByUser } from "./Order/getOrdersByUser.js";
+import { addToCart } from "./Cart/addToCart.js";
+import { incrementCartItem } from "./Cart/incrementCartItem.js";
+import { decrementCartItem } from "./Cart/decrementCartItem.js";
+import { removeCartItem } from "./Cart/removeCartItem.js";
+import { checkoutCart } from "./Cart/checkoutCart.js";
+import { getCartItems } from "./Cart/getCartItems.js";
+import { searchProducts } from "./product/searchProduct.js";
 
 export const logic = {
   registerUser,
@@ -46,4 +53,13 @@ export const logic = {
   getAllOrder,
   getOrderDetails,
   getOrderByUser,
+
+  addToCart,
+  incrementCartItem,
+  decrementCartItem,
+  removeCartItem,
+  checkoutCart,
+  getCartItems,
+
+  searchProducts,
 };
