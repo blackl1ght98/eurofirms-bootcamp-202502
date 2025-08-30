@@ -4,12 +4,12 @@ import { addOrder } from "./addOrder.js";
 connect("mongodb://localhost:27017/proyectoFinal")
   .then(() => {
     return addOrder(
-      "6873f0f152ec79b950c77cc9", // userId (cualquier usuario)
+      "6873f0f152ec79b950c77cc9",
       "ORD-002",
       "In progress",
       20.0,
       null, // saleId (aún no se usa)
-      "EUR", // currency
+      "EUR",
       null, // pagoId (aún no se usa)
       false, // isCar (por ahora sin carrito)
       [
