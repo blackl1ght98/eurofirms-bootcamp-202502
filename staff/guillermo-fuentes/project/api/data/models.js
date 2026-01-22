@@ -116,16 +116,12 @@ const order = new Schema({
     type: Number,
     required: true,
   },
-  saleId: {
-    type: String,
-  },
+
   currency: {
     type: String,
     required: true,
   },
-  pagoId: {
-    type: String,
-  },
+ 
   isCar: {
     type: Boolean,
   },

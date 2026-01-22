@@ -1,14 +1,12 @@
 import { Order, Product, User } from "../../data/index.js";
 import { validate, SystemError, NotFoundError } from "com";
 
-export const addOrder = (userId, numberOrder, stateOrder, total, saleId, currency, pagoId, isCar, products) => {
+export const addOrder = (userId, numberOrder, stateOrder, total,  currency,  isCar, products) => {
   validate.userId(userId);
   validate.numberOrder(numberOrder);
   validate.stateOrder(stateOrder);
   validate.total(total);
-  saleId = null;
   validate.currency(currency);
-  pagoId = null;
   isCar = false;
   if (!Array.isArray(products) || products.length === 0) {
     throw new Error("products must be a non-empty array");
@@ -42,9 +40,7 @@ export const addOrder = (userId, numberOrder, stateOrder, total, saleId, currenc
           dateOrder: new Date(),
           stateOrder,
           total,
-          saleId: saleId || null,
-          currency: currency || null,
-          pagoId: pagoId || null,
+          currency: currency || null,   
           isCar: isCar || false,
           user: user._id,
           products: validatedProducts,

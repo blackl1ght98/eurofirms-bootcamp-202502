@@ -17,10 +17,10 @@ orderRouter.post("/", jsonBodyParser, (request, response, next) => {
     const token = authorization.slice(7);
     const { sub: userId } = jwt.verify(token, JWT_SECRET);
 
-    const { numberOrder, stateOrder, total, saleId, currency, pagoId, isCar, products } = request.body;
+    const { numberOrder, stateOrder, total,  currency,  isCar, products } = request.body;
 
     logic
-      .addOrder(userId, numberOrder, stateOrder, total, null, currency, null, false, products)
+      .addOrder(userId, numberOrder, stateOrder, total, currency,  false, products)
       .then(() => response.status(201).send())
       .catch((error) => next(error));
   } catch (error) {
