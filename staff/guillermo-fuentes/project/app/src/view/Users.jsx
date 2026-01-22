@@ -130,6 +130,11 @@ export const Users = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl w-full">
         {users.map((user) => (
+          /**
+           * key: propiedad especial que ayuda a React a identificar que items han cambiado, son agregados o eliminados.
+           * Siempre que se renderiza una lista de elementos en React, es importante proporcionar una key unica 
+           * para cada elemento. Esta propiedad key no se pasa al componente hijo, es utilizada internamente por React.
+           */
           <User key={user.id} user={user} onUserDeleted={handleUpadateUser} onReloadUser={handleUpadateUser} />
         ))}
       </div>
