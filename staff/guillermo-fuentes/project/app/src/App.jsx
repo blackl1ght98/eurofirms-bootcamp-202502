@@ -91,6 +91,9 @@ export const App = () => {
           path="/register"
           element={
             !loggedIn || isAdmin ? (
+              /**Estos valores que le pasamos al componente registes son funciones que luego
+               * podemos ejecutar dentro del componente Register cuando queramos navegar a otra pantalla.
+               */
               <Register
                 onUserRegistered={handleUserRegistered}
                 onUserRegisteredAdmin={handleUserRegisteredAdmin}

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { EditUser } from "../EditUser";
 import { useContext } from "../../context/context";
 import { useRole } from "../../hooks/useRole";
-
+//Componente hijo de Users.jsx
 export const User = ({ user, onUserDeleted, onReloadUser }) => {
   const [editUser, setEditUser] = useState(false);
   const { alert, confirm } = useContext();

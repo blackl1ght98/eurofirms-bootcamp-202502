@@ -3,6 +3,7 @@ import { logic } from "../../logic";
 import debounce from "lodash/debounce";
 import { data } from "../../data";
 import { getPayloadFromToken } from "../../logic/helper/getPayloadFromToken";
+//Componente utilizado en  AddProduct.jsx, EditProduct.jsx y EditOrder.jsx
 export const SearchProviders = ({ onSelectProviderId, setError = () => {} }) => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);

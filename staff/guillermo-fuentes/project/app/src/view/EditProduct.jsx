@@ -3,8 +3,14 @@ import { useState } from "react";
 import { useRole } from "../hooks/useRole";
 import { SearchProviders } from "./components/SearchProviders";
 import { useContext } from "../context/context";
-
+/**
+ * Aqui la propiedad product nos la pasan desde el componente padre (Product.jsx)
+ */
 export const EditProduct = ({ product, onEditedProduct }) => {
+  /**
+   * Aqui podemos ver como usamos useState  para poblar los campos del formulario con
+   * los datos del producto que queremos editar.
+   */
   const [name, setName] = useState(product.name);
   const [description, setDescription] = useState(product.description);
   const [price, setPrice] = useState(product.price);

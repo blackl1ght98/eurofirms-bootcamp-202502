@@ -6,6 +6,10 @@ import { useContext } from "../context/context";
 import { useRole } from "../hooks/useRole";
 
 export const Users = () => {
+  /**
+   * UseState: Crea variables que cambian y React vuelve a pintar la pantalla cuando cambian.
+   * esto se usa cuando los datos van a cambiar.
+   *  */
   const [users, setUsers] = useState([]);
   const [role, setRol] = useState("All users");
   const navigate = useNavigate();
@@ -14,6 +18,10 @@ export const Users = () => {
   const { isAdmin } = useRole();
 
   const currentUser = logic.isCurrentUser();
+  /**
+   * UseEffect: ejecuta el codigo cuando cambia algo de lo especifica en el array de dependencias.
+   * en este caso cambia cuando cambia el role (desplegable) o isAdmin (al loguearse) o currentUser (al loguearse)
+   */
   useEffect(() => {
     if (isAdmin) {
       if (role === "All users") {

@@ -6,6 +6,12 @@ import { useContext } from "../../context/context";
 // import { useRole } from "../../hooks/useRole";
 import { data } from "../../data";
 import { getPayloadFromToken } from "../../logic/helper/getPayloadFromToken";
+/**
+ * Aqui la propiedad product nos la pasan desde el componente padre (Products.jsx)
+ * al igual que las dos funciones onReloadProvider y onEditedProduct que se ejecutan
+ * cuando se edita o elimina un producto para que el componente padre pueda actualizar.
+ * Componente hijo de Products.jsx
+ */
 export const Product = ({ product, onReloadProvider, onEditedProduct }) => {
   const [editProduct, setEditProduct] = useState(false);
   const { alert, confirm } = useContext();
@@ -120,7 +126,9 @@ export const Product = ({ product, onReloadProvider, onEditedProduct }) => {
             Add Cart
           </button>
         </div>
-
+        {/**Aqui vemos que la propiedad product la podemos pasar a otro componente (EditProduct.jsx)
+         * aunque este componente (Product.jsx) la haya recibido del componente padre (Products.jsx)
+          */}
         {editProduct && <EditProduct product={product} onEditedProduct={handleEditProduct} />}
       </div>
     </>

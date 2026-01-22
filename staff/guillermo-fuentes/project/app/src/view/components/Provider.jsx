@@ -5,7 +5,7 @@ import { useContext } from "../../context/context";
 import { useLoggedIn } from "../../hooks/useLoggedIn";
 import { useRole } from "../../hooks/useRole";
 import { useNavigate } from "react-router";
-
+//Componente hijo de Providers.jsx
 export const Provider = ({ provider, onReloadProvider, onEditedProvider }) => {
   const [editProvider, setEditProvider] = useState(false);
   const navigate = useNavigate();

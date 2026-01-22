@@ -5,7 +5,7 @@ import { useContext } from "../../context/context";
 import { useNavigate } from "react-router";
 import { data } from "../../data";
 import { getPayloadFromToken } from "../../logic/helper/getPayloadFromToken";
-
+//Componente hijo de Orders.jsx
 export const Order = ({ order, onReloadOrder, onEditedOrder }) => {
   const [editOrder, setEditOrder] = useState(false);
   const { alert, confirm } = useContext();

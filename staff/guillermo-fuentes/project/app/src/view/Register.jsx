@@ -1,6 +1,10 @@
 import { logic } from "../logic";
 import { useRole } from "../hooks/useRole";
-
+/**
+ * Aqui podemos ver como capturamos las funciones que nos pasan como props desde el componente padre (App.jsx)
+ * y las guardamos en funciones locales que luego podemos ejecutar cuando queramos para navegar a las pantallas
+ * correspondientes.
+ */
 export const Register = ({ onUserRegistered, onUserRegisteredAdmin, onRegisterCancel }) => {
   const { isAdmin } = useRole();
   const handleUserRegistered = () => onUserRegistered();
