@@ -1,19 +1,25 @@
-import { logic } from "../logic";
-import { useEffect, useState } from "react";
-import { User } from "./components/User";
-import { useNavigate } from "react-router";
-import { useContext } from "../context/context";
-import { useRole } from "../hooks/useRole";
+import { logic } from '../logic';
+import { useEffect, useState } from 'react';
+import { User } from './components/User';
+import { useNavigate } from 'react-router';
+import { useContext } from '../context/context';
+import { useRole } from '../hooks/useRole';
 
 export const Users = () => {
   /**
    * UseState: Crea variables que cambian y React vuelve a pintar la pantalla cuando cambian.
    * esto se usa cuando los datos van a cambiar.
+   * Para entenderlo mejor el useState pongamos de ejemplo los getter y setters:
+   * const [users, setUsers] = useState([]);
+   * users es la variable que contiene el valor actual del estado, y
+   * setUsers es la función que se utiliza para actualizar ese estado.
+   * El argumento pasado a useState (en este caso, []) es el valor inicial del estado.
+   * Para poder usr el get (users) primero tenemos que rellenarlo con el set (setUsers) y luego ya podemos usar el get (users) para mostrarlo en pantalla.
    *  */
   const [users, setUsers] = useState([]);
-  const [role, setRol] = useState("All users");
+  const [role, setRol] = useState('All users');
   const navigate = useNavigate();
-  const roles = ["All users", "Administrators", "Clients", "Providers", "Employee"];
+  const roles = ['All users', 'Administrators', 'Clients', 'Providers', 'Employee'];
   const { alert } = useContext();
   const { isAdmin } = useRole();
 
@@ -24,7 +30,7 @@ export const Users = () => {
    */
   useEffect(() => {
     if (isAdmin) {
-      if (role === "All users") {
+      if (role === 'All users') {
         logic
           .getUsers()
           .then((users) => {
@@ -36,14 +42,14 @@ export const Users = () => {
           });
       } else {
         let roleToSend;
-        if (role === "Administrators") {
-          roleToSend = "administrator";
-        } else if (role === "Clients") {
-          roleToSend = "client";
-        } else if (role === "Providers") {
-          roleToSend = "provider";
-        } else if (role === "Employee") {
-          roleToSend = "employee";
+        if (role === 'Administrators') {
+          roleToSend = 'administrator';
+        } else if (role === 'Clients') {
+          roleToSend = 'client';
+        } else if (role === 'Providers') {
+          roleToSend = 'provider';
+        } else if (role === 'Employee') {
+          roleToSend = 'employee';
         }
         logic
           .getUsersByRol(roleToSend)
@@ -120,7 +126,7 @@ export const Users = () => {
 
           <button
             className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate('/register')}
           >
             <i className="fa fa-plus"></i>
             Register
@@ -132,7 +138,7 @@ export const Users = () => {
         {users.map((user) => (
           /**
            * key: propiedad especial que ayuda a React a identificar que items han cambiado, son agregados o eliminados.
-           * Siempre que se renderiza una lista de elementos en React, es importante proporcionar una key unica 
+           * Siempre que se renderiza una lista de elementos en React, es importante proporcionar una key unica
            * para cada elemento. Esta propiedad key no se pasa al componente hijo, es utilizada internamente por React.
            */
           <User key={user.id} user={user} onUserDeleted={handleUpadateUser} onReloadUser={handleUpadateUser} />
